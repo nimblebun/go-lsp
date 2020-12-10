@@ -72,3 +72,17 @@ type DiagnosticRelatedInformation struct {
 	// The message of this related diagnostic information.
 	Message string `json:"message"`
 }
+
+// PublishDiagnosticsParams contains the parameters sent in a
+// `textDocument/publishDiagnostics` notification.
+type PublishDiagnosticsParams struct {
+	// The URI for which diagnostic information is reported.
+	URI DocumentURI `json:"uri"`
+
+	// The version number of the document the diagnostics are published for.
+	// Optional.
+	Version int `json:"version,omitempty"`
+
+	// An array of diagnostic information items.
+	Diagnostics []Diagnostic `json:"diagnostics"`
+}

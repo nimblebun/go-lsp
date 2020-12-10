@@ -17,3 +17,29 @@ type Command struct {
 	// Arguments that the command handler should be invoked with.
 	Arguments []interface{} `json:"arguments"`
 }
+
+// ExecuteCommandOptions contains the options for the command execution handler.
+type ExecuteCommandOptions struct {
+	WorkDoneProgressOptions
+
+	// The commands to be executed on the server.
+	Commands []string `json:"commands"`
+}
+
+// ExecuteCommandRegistrationOptions contains the command execution registration
+// options.
+type ExecuteCommandRegistrationOptions struct {
+	ExecuteCommandOptions
+}
+
+// ExecuteCommandParams contains the fields sent in a `workspace/executeCommand`
+// request.
+type ExecuteCommandParams struct {
+	WorkDoneProgressParams
+
+	// The identifier of the actual command handler.
+	Command string `json:"command"`
+
+	// Arguments that the command should be invoked with.
+	Arguments interface{} `json:"arguments,omitempty"`
+}
