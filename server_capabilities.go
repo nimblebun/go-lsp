@@ -10,3 +10,8 @@ type WorkspaceFoldersServerCapabilities struct {
 	// change notifications.
 	ChangeNotifications string `json:"changeNotifications,omitempty"`
 }
+
+// ServerCapabilities defines the capabilities of the language server.
+type ServerCapabilities struct {
+	// TODO.
+}

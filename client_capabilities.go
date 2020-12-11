@@ -16,8 +16,23 @@ type DidChangeWatchedFilesClientCapabilities struct {
 	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
 }
 
+// WorkspaceEditClientCapabilities contains information about the client's
+// workspace edit capabilities.
+type WorkspaceEditClientCapabilities struct {
+	// The client supports versioned document changes in `WorkspaceEdit`s
+	DocumentChanges bool `json:"documentChanges,omitempty"`
+
+	// The resource operations the client supports. Clients should at least
+	// support 'create', 'rename' and 'delete' files and folders.
+	ResourceOperations []ResourceOperationKind `json:"resourceOperations,omitempty"`
+
+	// The failure handling strategy of a client if applying the workspace edit
+	// fails.
+	FailureHandling []FailureHandlingKind `json:"failureHandling,omitempty"`
+}
+
 // WorkspaceSymbolClientCapabilities contains information about the client's
-// client's workspace symbol capabilities.
+// workspace symbol capabilities.
 type WorkspaceSymbolClientCapabilities struct {
 	// Symbol request supports dynamic registration.
 	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
@@ -127,4 +142,15 @@ type CompletionClientCapabilities struct {
 	// The client supports to send additional context information for a
 	// `textDocument/completion` request.
 	ContextSupport bool `json:"contextSupport,omitempty"`
+}
+
+// TextDocumentClientCapabilities define capabilities the editor / tool provides
+// on text documents.
+type TextDocumentClientCapabilities struct {
+	// TODO.
+}
+
+// ClientCapabilities defines workspace-specific client capabilities.
+type ClientCapabilities struct {
+	// TODO.
 }
