@@ -144,6 +144,45 @@ type CompletionClientCapabilities struct {
 	ContextSupport bool `json:"contextSupport,omitempty"`
 }
 
+// HoverClientCapabilities contains information about the client's hover
+// capabilities.
+type HoverClientCapabilities struct {
+	// Whether hover supports dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+
+	// Client supports the follow content formats for the content property. The
+	// order describes the preferred format of the client.
+	ContentFormat []MarkupKind `json:"contentFormat,omitempty"`
+}
+
+// SignatureHelpClientCapabilities contains information about the client's
+// signature help capabilities.
+type SignatureHelpClientCapabilities struct {
+	// Whether hover supports dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+
+	// The client supports the following `SignatureInformation` specific
+	// properties.
+	SignatureInformation struct {
+		// Client supports the follow content formats for the documentation
+		// property. The order describes the preferred format of the client.
+		DocumentationFormat []MarkupKind `json:"documentationFormat,omitempty"`
+
+		// Client capabilities specific to parameter information.
+		ParameterInformation struct {
+			// The client supports processing label offsets instead of a simple label
+			// string.
+			LabelOffsetSupport bool `json:"labelOffsetSupport,omitempty"`
+		} `json:"parameterInformation,omitempty"`
+	} `json:"signatureInformation,omitempty"`
+
+	// The client supports to send additional context information for a
+	// `textDocument/signatureHelp` request. A client that opts into
+	// contextSupport will also support the `retriggerCharacters` on
+	// `SignatureHelpOptions`.
+	ContextSupport bool `json:"contextSupport,omitempty"`
+}
+
 // TextDocumentClientCapabilities define capabilities the editor / tool provides
 // on text documents.
 type TextDocumentClientCapabilities struct {
