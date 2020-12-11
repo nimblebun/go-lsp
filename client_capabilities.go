@@ -158,7 +158,7 @@ type HoverClientCapabilities struct {
 // SignatureHelpClientCapabilities contains information about the client's
 // signature help capabilities.
 type SignatureHelpClientCapabilities struct {
-	// Whether hover supports dynamic registration.
+	// Whether signature help supports dynamic registration.
 	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
 
 	// The client supports the following `SignatureInformation` specific
@@ -181,6 +181,81 @@ type SignatureHelpClientCapabilities struct {
 	// contextSupport will also support the `retriggerCharacters` on
 	// `SignatureHelpOptions`.
 	ContextSupport bool `json:"contextSupport,omitempty"`
+}
+
+// DefinitionClientCapabilities contains information about the client's
+// go-to-definition capabilities.
+type DefinitionClientCapabilities struct {
+	// Whether definition supports dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+
+	// The client supports additional metadata in the form of definition links.
+	LinkSupport bool `json:"linkSupport,omitempty"`
+}
+
+// TypeDefinitionClientCapabilities contains information about the client's
+// go-to-type-definition capabilities.
+type TypeDefinitionClientCapabilities struct {
+	// Whether type definition supports dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+
+	// The client supports additional metadata in the form of definition links.
+	LinkSupport bool `json:"linkSupport,omitempty"`
+}
+
+// ImplementationClientCapabilities contains information about the client's
+// go-to-implementation capabilities.
+type ImplementationClientCapabilities struct {
+	// Whether implementation supports dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+
+	// The client supports additional metadata in the form of definition links.
+	LinkSupport bool `json:"linkSupport,omitempty"`
+}
+
+// ReferenceClientCapabilities contains information about the client's find
+// references capabilities.
+type ReferenceClientCapabilities struct {
+	// Whether references support dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+}
+
+// DocumentHighlightClientCapabilities contains information about the client's
+// document highlight capabilities.
+type DocumentHighlightClientCapabilities struct {
+	// Whether document highlight supports dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+}
+
+// DocumentSymbolClientCapabilities contains information about the client's
+// document symbol capabilities.
+type DocumentSymbolClientCapabilities struct {
+	// Whether document symbol supports dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+
+	// Specific capabilities for the `SymbolKind` in the
+	// `textDocument/documentSymbol` request.
+	SymbolKind struct {
+		// The symbol kind values the client supports. When this
+		// property exists the client also guarantees that it will
+		// handle values outside its set gracefully and falls back
+		// to a default value when unknown.
+		//
+		// If this property is not present the client only supports
+		// the symbol kinds from `File` to `Array` as defined in
+		// the initial version of the protocol.
+		ValueSet []SymbolKind `json:"valueSet,omitempty"`
+	} `json:"symbolKind,omitempty"`
+}
+
+// DocumentLinkClientCapabilities contains information about the client's
+// document link capabilities.
+type DocumentLinkClientCapabilities struct {
+	// Whether document link supports dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+
+	// Whether the client supports the `tooltip` property on `DocumentLink`.
+	TooltipSupport bool `json:"tooltipSupport,omitempty"`
 }
 
 // TextDocumentClientCapabilities define capabilities the editor / tool provides

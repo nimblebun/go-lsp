@@ -63,3 +63,99 @@ type LocationLink struct {
 	// Must be contained by the the `targetRange`.
 	TargetSelectionRange Range `json:"targetSelectionRange"`
 }
+
+// DocumentHighlightKind defines a document highlight kind.
+type DocumentHighlightKind int
+
+const (
+	// DocumentHighlightKindText denotes a textual occurrence.
+	DocumentHighlightKindText DocumentHighlightKind = iota + 1
+
+	// DocumentHighlightKindRead denotes read-access of a symbol, like reading a
+	// variable.
+	DocumentHighlightKindRead
+
+	// DocumentHighlightKindWrite denotes write-access of a symbol, like writing
+	// to a variable.
+	DocumentHighlightKindWrite
+)
+
+// DocumentHighlight is a range inside a text document which deserves special
+// attention. Usually a document highlight is visualized by changing the
+// background color of its range.
+type DocumentHighlight struct {
+	// The range this highlight applies to.
+	Range Range `json:"range"`
+
+	// The highlight kind, default is DocumentHighlightKindText.
+	Kind DocumentHighlightKind `json:"kind"`
+}
+
+// DocumentHighlightOptions contains the options for the document highlight
+// handler.
+type DocumentHighlightOptions struct {
+	WorkDoneProgressOptions
+}
+
+// DocumentHighlightRegistrationOptions contains the options for the document
+// highlight handler registration.
+type DocumentHighlightRegistrationOptions struct {
+	TextDocumentRegistrationOptions
+	DocumentHighlightOptions
+}
+
+// DocumentHighlightParams contains the fields sent in a
+// `textDocument/documentHighlight` request.
+type DocumentHighlightParams struct {
+	TextDocumentPositionParams
+	WorkDoneProgressParams
+	PartialResultParams
+}
+
+// DocumentLink is a range in a text document that links to an internal or
+// external resource, like another text document or a web site.
+type DocumentLink struct {
+	// The range this link applies to.
+	Range Range `json:"range"`
+
+	// The uri this link points to. If missing a resolve request is sent later.
+	Target DocumentURI `json:"target,omitempty"`
+
+	// The tooltip text when you hover over this link.
+	//
+	// If a tooltip is provided, it will be displayed in a string that
+	// includes instructions on how to trigger the link,
+	// such as `{0} (ctrl + click)`.
+	// The specific instructions vary depending on OS, user settings,
+	// and localization.
+	Tooltip string `json:"tooltip,omitempty"`
+
+	// A data entry field that is preserved on a document link between a
+	// DocumentLinkRequest and a DocumentLinkResolveRequest.
+	Data interface{} `json:"data,omitempty"`
+}
+
+// DocumentLinkOptions contains the options for the document link handler.
+type DocumentLinkOptions struct {
+	WorkDoneProgressOptions
+
+	// Document links have a resolve provider as well.
+	ResolveProvider bool `json:"resolveProvider,omitempty"`
+}
+
+// DocumentLinkRegistrationOptions contains the options for the document link
+// handler registration.
+type DocumentLinkRegistrationOptions struct {
+	TextDocumentRegistrationOptions
+	DocumentLinkOptions
+}
+
+// DocumentLinkParams contains the fields sent in a
+// `textDocument/documentLink` request.
+type DocumentLinkParams struct {
+	WorkDoneProgressParams
+	PartialResultParams
+
+	// The document to provide document links for.
+	TextDocument TextDocumentIdentifier `json:"textDocument"`
+}
