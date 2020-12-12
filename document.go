@@ -159,3 +159,277 @@ type DocumentLinkParams struct {
 	// The document to provide document links for.
 	TextDocument TextDocumentIdentifier `json:"textDocument"`
 }
+
+// Color represents a color in RGBA space.
+type Color struct {
+	// The red component of this color in the range [0-1].
+	Red float64 `json:"red"`
+
+	// The green component of this color in the range [0-1].
+	Green float64 `json:"green"`
+
+	// The blue component of this color in the range [0-1].
+	Blue float64 `json:"blue"`
+
+	// The alpha component of this color in the range [0-1].
+	Alpha float64 `json:"alpha"`
+}
+
+// ColorInformation contains the color information for a given range.
+type ColorInformation struct {
+	// The range in the document where this color appears.
+	Range Range `json:"range"`
+
+	// The actual color value for this color range.
+	Color Color `json:"color"`
+}
+
+// DocumentColorOptions contains the options for the document color handler.
+type DocumentColorOptions struct {
+	WorkDoneProgressOptions
+}
+
+// DocumentColorRegistrationOptions contains the options for the document color
+// handler registration.
+type DocumentColorRegistrationOptions struct {
+	TextDocumentRegistrationOptions
+	StaticRegistrationOptions
+	DocumentColorOptions
+}
+
+// DocumentColorParams contains the fields sent in a
+// `textDocument/documentColor` request.
+type DocumentColorParams struct {
+	WorkDoneProgressParams
+	PartialResultParams
+
+	// The text document.
+	TextDocument TextDocumentIdentifier `json:"textDocument"`
+}
+
+// ColorPresentation contains the presentation data of a color value.
+type ColorPresentation struct {
+	// The label of this color presentation. It will be shown on the color
+	// picker header.
+	// By default, this is also the text that is inserted when selecting
+	// this color presentation.
+	Label string `json:"label"`
+
+	// A `TextEdit` which is applied to a document when selecting
+	// this presentation for the color.
+	// When `falsy`, the `ColorPresentation.Label` is used.
+	TextEdit TextEdit `json:"textEdit,omitempty"`
+
+	// An optional array of additional `TextEdit`s that are
+	// applied when selecting this color presentation.
+	// Edits must not overlap with the main `ColorPresentation.TextEdit`
+	// nor with themselves.
+	AdditionalTextEdits []TextEdit `json:"additionalTextEdits,omitempty"`
+}
+
+// ColorPresentationParams contains the fields sent in a
+// `textDocument/colorPresentation` request.
+type ColorPresentationParams struct {
+	WorkDoneProgressParams
+	PartialResultParams
+
+	// The text document.
+	TextDocument TextDocumentIdentifier `json:"textDocument"`
+
+	// The color information to request presentations for.
+	Color Color `json:"color"`
+
+	// The range where the color would be inserted. Serves as a context.
+	Range Range `json:"range"`
+}
+
+// FormattingOptions is a value-object describing what options formatting should
+// use.
+type FormattingOptions struct {
+	// Size of a tab in spaces.
+	TabSize int `json:"tabSize"`
+
+	// Prefer spaces over tabs.
+	InsertSpaces bool `json:"insertSpaces"`
+
+	// Trim trailing whitespace on a line.
+	TrimTrailingWhitespace bool `json:"trimTrailingWhitespace,omitempty"`
+
+	// Insert a newline character at the end of the file if one does not exist.
+	InsertFinalNewline bool `json:"insertFinalNewline,omitempty"`
+
+	// Trim all newlines after the final newline at the end of the file.
+	TrimFinalNewlines bool `json:"trimFinalNewlines,omitempty"`
+}
+
+// DocumentFormattingOptions contains the options for the document formatting
+// handler.
+type DocumentFormattingOptions struct {
+	WorkDoneProgressOptions
+}
+
+// DocumentFormattingRegistrationOptions contains the options for the document
+// formatting handler registration.
+type DocumentFormattingRegistrationOptions struct {
+	TextDocumentRegistrationOptions
+	DocumentFormattingOptions
+}
+
+// DocumentFormattingParams contains the fields sent in a
+// `textDocument/formatting` request.
+type DocumentFormattingParams struct {
+	WorkDoneProgressParams
+
+	// The document to format.
+	TextDocument TextDocumentIdentifier `json:"textDocument"`
+
+	// The format options.
+	Options FormattingOptions `json:"options"`
+}
+
+// DocumentRangeFormattingOptions contains the options for the document range
+// formatting handler.
+type DocumentRangeFormattingOptions struct {
+	WorkDoneProgressOptions
+}
+
+// DocumentRangeFormattingRegistrationOptions contains the options for the
+// document range formatting handler registration.
+type DocumentRangeFormattingRegistrationOptions struct {
+	TextDocumentRegistrationOptions
+	DocumentRangeFormattingOptions
+}
+
+// DocumentRangeFormattingParams contains the fields sent in a
+// `textDocument/rangeFormatting` request.
+type DocumentRangeFormattingParams struct {
+	WorkDoneProgressParams
+
+	// The document to format.
+	TextDocument TextDocumentIdentifier `json:"textDocument"`
+
+	// The range to format.
+	Range Range `json:"range"`
+
+	// The format options.
+	Options FormattingOptions `json:"options"`
+}
+
+// DocumentOnTypeFormattingOptions contains the options for the document on-type
+// formatting handler.
+type DocumentOnTypeFormattingOptions struct {
+	// A character on which formatting should be triggered, like `}`.
+	FirstTriggerCharacter string `json:"firstTriggerCharacter"`
+
+	// More trigger characters.
+	MoreTriggerCharacter []string `json:"moreTriggerCharacter,omitempty"`
+}
+
+// DocumentOnTypeFormattingRegistrationOptions contains the options for the
+// document on-type formatting handler registration.
+type DocumentOnTypeFormattingRegistrationOptions struct {
+	TextDocumentRegistrationOptions
+	DocumentOnTypeFormattingOptions
+}
+
+// DocumentOnTypeFormattingParams contains the fields sent in a
+// `textDocument/onTypeFormatting` request.
+type DocumentOnTypeFormattingParams struct {
+	TextDocumentPositionParams
+
+	// The character that has been typed.
+	Character string `json:"ch"`
+
+	// The format options.
+	Options FormattingOptions `json:"options"`
+}
+
+// FoldingRangeKind contains the known range kinds.
+type FoldingRangeKind string
+
+const (
+	// FoldingRangeKindComment denotes that the folding range is for a comment.
+	FoldingRangeKindComment FoldingRangeKind = "comment"
+
+	// FoldingRangeKindImports denotes that the folding range is for imports or
+	// includes.
+	FoldingRangeKindImports = "imports"
+
+	// FoldingRangeKindRegion denotes that the folding range is for a region
+	// (e.g. `#region`).
+	FoldingRangeKindRegion = "region"
+)
+
+// FoldingRange represents a folding range for the client.
+type FoldingRange struct {
+	// The zero-based line number from where the folded range starts.
+	StartLine int `json:"startLine"`
+
+	// The zero-based character offset from where the folded range starts.
+	// If not defined, defaults to the length of the start line.
+	StartCharacter int `json:"startCharacter,omitempty"`
+
+	// The zero-based line number where the folded range ends.
+	EndLine int `json:"endLine"`
+
+	// The zero-based character offset before the folded range ends.
+	// If not defined, defaults to the length of the end line.
+	EndCharacter int `json:"endCharacter,omitempty"`
+
+	// Describes the kind of the folding range such as `comment` or `region`.
+	// The kind is used to categorize folding ranges and used by commands
+	// like 'Fold all comments'.
+	// See FoldingRangeKind for an enumeration of standardized kinds.
+	Kind FoldingRangeKind `json:"kind,omitempty"`
+}
+
+// FoldingRangeOptions contains the options for the folding range provider
+// handler.
+type FoldingRangeOptions struct {
+	WorkDoneProgressOptions
+}
+
+// FoldingRangeRegistrationOptions contains the options for the folding range
+// provider handler registration.
+type FoldingRangeRegistrationOptions struct {
+	TextDocumentRegistrationOptions
+	FoldingRangeOptions
+	StaticRegistrationOptions
+}
+
+// FoldingRangeParams contains the fields sent in a `textDocument/foldingRange`
+// request.
+type FoldingRangeParams struct {
+	WorkDoneProgressParams
+	PartialResultParams
+
+	// The text document.
+	TextDocument TextDocumentIdentifier `json:"textDocument"`
+}
+
+// SelectionRangeOptions contains the options for the selection range provider
+// handler.
+type SelectionRangeOptions struct {
+	WorkDoneProgressOptions
+}
+
+// SelectionRangeRegistrationOptions contains the options for the selection
+// range provider handler registration.
+type SelectionRangeRegistrationOptions struct {
+	SelectionRangeOptions
+	TextDocumentRegistrationOptions
+	StaticRegistrationOptions
+}
+
+// SelectionRangeParams contains the fields sent in a
+// `textDocument/selectionRange` request.
+type SelectionRangeParams struct {
+	WorkDoneProgressParams
+	PartialResultParams
+
+	// The text document.
+	TextDocument TextDocumentIdentifier `json:"textDocument"`
+
+	// The positions inside the text document.
+	Positions []Position `json:"positions"`
+}

@@ -1,5 +1,26 @@
 package lsp
 
+// DeclarationOptions contains the options for the go-to-declaration handler.
+type DeclarationOptions struct {
+	WorkDoneProgressOptions
+}
+
+// DeclarationRegistrationOptions contains the options for the go-to-declaration
+// handler registration.
+type DeclarationRegistrationOptions struct {
+	DeclarationOptions
+	TextDocumentRegistrationOptions
+	StaticRegistrationOptions
+}
+
+// DeclarationParams contains the fields sent in a `textDocument/declaration`
+// request.
+type DeclarationParams struct {
+	TextDocumentPositionParams
+	WorkDoneProgressParams
+	PartialResultParams
+}
+
 // DefinitionOptions contains the options for the go-to-definition handler.
 type DefinitionOptions struct {
 	WorkDoneProgressOptions

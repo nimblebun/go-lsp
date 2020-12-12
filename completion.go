@@ -222,3 +222,43 @@ type CompletionItem struct {
 	// a completion and a completion resolve request.
 	Data interface{} `json:"data,omitempty"`
 }
+
+// CompletionOptions contains the options for the completion handler.
+type CompletionOptions struct {
+	WorkDoneProgressOptions
+
+	// If code complete should automatically be triggered on characters
+	// not being valid inside an identifier (for example `.` in JavaScript),
+	// list them in `triggerCharacters`.
+	TriggerCharacters []string `json:"triggerCharacters,omitempty"`
+
+	// The list of all possible characters that commit a completion.
+	// This field can be used if clients don't support individual commit
+	// characters per completion item.
+	//
+	// If a server provides both `allCommitCharacters` and commit characters
+	// on an individual completion item, the ones on the completion item win.
+	AllCommitCharacters []string `json:"allCommitCharacters,omitempty"`
+
+	// The server provides support to resolve additional
+	// information for a completion item.
+	ResolveProvider bool `json:"resolveProvider,omitempty"`
+}
+
+// CompletionRegistrationOptions contains the options for the completion handler
+// registration.
+type CompletionRegistrationOptions struct {
+	TextDocumentRegistrationOptions
+	CompletionOptions
+}
+
+// CompletionParams contains the fields sent in a `textDocument/completion`
+// request.
+type CompletionParams struct {
+	TextDocumentPositionParams
+	WorkDoneProgressParams
+	PartialResultParams
+
+	// The completion context.
+	Context CompletionContext `json:"context,omitempty"`
+}

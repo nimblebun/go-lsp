@@ -59,3 +59,35 @@ type DidChangeWatchedFilesRegistrationOptions struct {
 type DidChangeWatchedFilesParams struct {
 	Changes []FileEvent `json:"changes"`
 }
+
+// RenameOptions contains the options for the rename handler.
+type RenameOptions struct {
+	WorkDoneProgressOptions
+
+	// Renames should be checked and tested before being executed.
+	PrepareProvider bool `json:"prepareProvider,omitempty"`
+}
+
+// RenameRegistrationOptions contains the options for the rename handler
+// registration.
+type RenameRegistrationOptions struct {
+	TextDocumentRegistrationOptions
+	RenameOptions
+}
+
+// RenameParams contains the fields sent in a `textDocument/rename` request.
+type RenameParams struct {
+	TextDocumentPositionParams
+	WorkDoneProgressParams
+
+	// The new name of the symbol. If the given name is not valid the
+	// request must return a [ResponseError](#ResponseError) with an
+	// appropriate message set.
+	NewName string `json:"newName"`
+}
+
+// PrepareRenameParams contains the fields sent in a `textDocument/prepareRename`
+// request.
+type PrepareRenameParams struct {
+	TextDocumentPositionParams
+}
