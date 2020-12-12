@@ -1,5 +1,11 @@
 package lsp
 
+// CancelParams contains the parameters of the `$/cancelRequest` method.
+type CancelParams struct {
+	// The request ID to cancel.
+	ID ID `json:"id"`
+}
+
 // StaticRegistrationOptions can be used to register a feature in the initialize
 // result with a given server control ID to be able to un-register the feature
 // later on.
