@@ -276,7 +276,7 @@ type CompletionItem struct {
 	//
 	// *Note:* The range of the edit must be a single line range and it must
 	// contain the position at which completion has been requested.
-	TextEdit TextEdit `json:"textEdit,omitempty"`
+	TextEdit *TextEdit `json:"textEdit,omitempty"`
 
 	// An optional array of additional text edits that are applied when
 	// selecting this completion.
@@ -302,6 +302,17 @@ type CompletionItem struct {
 	// A data entry field that is preserved on a completion item between
 	// a completion and a completion resolve request.
 	Data interface{} `json:"data,omitempty"`
+}
+
+// CompletionList represents a collection of `CompletionItem`s to be presented
+// in the editor.
+type CompletionList struct {
+	// This list it not complete. Further typing should result in recomputing
+	// this list.
+	IsIncomplete bool `json:"isIncomplete"`
+
+	// The completion items.
+	Items []CompletionItem `json:"items"`
 }
 
 // CompletionOptions contains the options for the completion handler.

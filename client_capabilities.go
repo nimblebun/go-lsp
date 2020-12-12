@@ -429,13 +429,13 @@ type TextDocumentClientCapabilities struct {
 	Rename *RenameClientCapabilities `json:"rename,omitempty"`
 
 	// Capabilities specific to the `textDocument/publishDiagnostics` notification
-	PublishDiagnostics PublishDiagnosticsClientCapabilities `json:"publishDiagnostics,omitempty"`
+	PublishDiagnostics *PublishDiagnosticsClientCapabilities `json:"publishDiagnostics,omitempty"`
 
 	// Capabilities specific to the `textDocument/foldingRange` request.
-	FoldingRange FoldingRangeClientCapabilities `json:"foldingRange,omitempty"`
+	FoldingRange *FoldingRangeClientCapabilities `json:"foldingRange,omitempty"`
 
 	// Capabilities specific to the `textDocument/selectionRange` request.
-	SelectionRange SelectionRangeClientCapabilities `json:"selectionRange,omitempty"`
+	SelectionRange *SelectionRangeClientCapabilities `json:"selectionRange,omitempty"`
 }
 
 // ClientCapabilities defines workspace-specific client capabilities.
@@ -462,7 +462,7 @@ type ClientCapabilities struct {
 		Symbol *WorkspaceSymbolClientCapabilities `json:"symbol,omitempty"`
 
 		// Capabilities specific to the `workspace/executeCommand` request.
-		ExecuteCommand ExecuteCommandClientCapabilities `json:"executeCommand,omitempty"`
+		ExecuteCommand *ExecuteCommandClientCapabilities `json:"executeCommand,omitempty"`
 
 		// The client has support for workspace folders.
 		WorkspaceFolders bool `json:"workspaceFolders,omitempty"`

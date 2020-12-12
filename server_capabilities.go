@@ -20,7 +20,7 @@ type ServerCapabilities struct {
 	CompletionProvider *CompletionOptions `json:"completionProvider,omitempty"`
 
 	// The server provides hover support.
-	HoverProvider *HoverRegistrationOptions `json:"hoverProvider,omitempty"`
+	HoverProvider *HoverOptions `json:"hoverProvider,omitempty"`
 
 	// The server provides signature help support.
 	SignatureHelpProvider *SignatureHelpOptions `json:"signatureHelpProvider,omitempty"`
