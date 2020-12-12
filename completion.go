@@ -84,7 +84,7 @@ type CompletionItemKind int
 
 const (
 	// CIKText represents a text completion item kind.
-	CIKText = iota + 1
+	CIKText CompletionItemKind = iota + 1
 
 	// CIKMethod represents a method completion item kind.
 	CIKMethod
