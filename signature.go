@@ -71,6 +71,19 @@ const (
 	SHTriggerKindContentChange
 )
 
+func (shtk SignatureHelpTriggerKind) String() string {
+	switch shtk {
+	case SHTriggerKindInvoked:
+		return "invoked"
+	case SHTriggerKindTriggerCharacter:
+		return "trigger character"
+	case SHTriggerKindContentChange:
+		return "content change"
+	}
+
+	return "<unknown>"
+}
+
 // SignatureHelpContext contains additional information about the context in
 // which a signature help request was triggered.
 type SignatureHelpContext struct {

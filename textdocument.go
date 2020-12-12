@@ -104,6 +104,19 @@ const (
 	TDSyncKindIncremental
 )
 
+func (kind TextDocumentSyncKind) String() string {
+	switch kind {
+	case TDSyncKindNone:
+		return "none"
+	case TDSyncKindFull:
+		return "full"
+	case TDSyncKindIncremental:
+		return "incremental"
+	}
+
+	return "<unknown>"
+}
+
 // TextDocumentSyncOptions specifies the options for setting up text document
 // sync.
 type TextDocumentSyncOptions struct {
@@ -148,7 +161,7 @@ type TextDocumentChangeRegistrationOptions struct {
 // document.
 type TextDocumentContentChangeEvent struct {
 	// The range of the document that changed.
-	Range Range `json:"range,omitempty"`
+	Range *Range `json:"range,omitempty"`
 
 	// The new text for the provided range or the whole document.
 	Text string `json:"text"`
@@ -183,6 +196,19 @@ const (
 	// editor lost focus.
 	TDSaveReasonFocusOut
 )
+
+func (reason TextDocumentSaveReason) String() string {
+	switch reason {
+	case TDSaveReasonManual:
+		return "manual"
+	case TDSaveReasonAfterDelay:
+		return "after delay"
+	case TDSaveReasonFocusOut:
+		return "focus out"
+	}
+
+	return "<unknown>"
+}
 
 // WillSaveTextDocumentParams contains the parameters sent in a will save text
 // document notification.

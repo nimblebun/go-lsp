@@ -83,6 +83,65 @@ const (
 	SKTypeParameter
 )
 
+func (kind SymbolKind) String() string {
+	switch kind {
+	case SKFile:
+		return "file"
+	case SKModule:
+		return "module"
+	case SKNamespace:
+		return "namespace"
+	case SKPackage:
+		return "package"
+	case SKClass:
+		return "class"
+	case SKMethod:
+		return "method"
+	case SKProperty:
+		return "property"
+	case SKField:
+		return "field"
+	case SKConstructor:
+		return "constructor"
+	case SKEnum:
+		return "enum"
+	case SKInterface:
+		return "interface"
+	case SKFunction:
+		return "function"
+	case SKVariable:
+		return "variable"
+	case SKConstant:
+		return "constant"
+	case SKString:
+		return "string"
+	case SKNumber:
+		return "number"
+	case SKBoolean:
+		return "boolean"
+	case SKArray:
+		return "array"
+	case SKObject:
+		return "object"
+	case SKKey:
+		return "key"
+	case SKNull:
+		return "null"
+	case SKEnumMember:
+		return "enum member"
+	case SKStruct:
+		return "struct"
+	case SKEvent:
+		return "event"
+	case SKOperator:
+		return "operator"
+	case SKTypeParameter:
+		return "type parameter"
+	}
+
+	return "<unknown>"
+}
+
 // WorkspaceSymbolOptions is a literal for WorkDoneProgressOptions for symbols
 // in a workspace.
 type WorkspaceSymbolOptions struct {

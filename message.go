@@ -17,6 +17,21 @@ const (
 	MTLog
 )
 
+func (mt MessageType) String() string {
+	switch mt {
+	case MTError:
+		return "error"
+	case MTWarning:
+		return "warning"
+	case MTInfo:
+		return "information"
+	case MTLog:
+		return "log"
+	}
+
+	return "<unknown>"
+}
+
 // ShowMessageParams is the payload that is sent on a `window/showMessage`
 // notification.
 type ShowMessageParams struct {

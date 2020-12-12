@@ -17,6 +17,21 @@ const (
 	DSHint
 )
 
+func (severity DiagnosticSeverity) String() string {
+	switch severity {
+	case DSError:
+		return "error"
+	case DSWarning:
+		return "warning"
+	case DSInformation:
+		return "information"
+	case DSHint:
+		return "hint"
+	}
+
+	return "<unknown>"
+}
+
 // DiagnosticTag denotes the status of a given code snippet in a document.
 type DiagnosticTag int
 
@@ -32,6 +47,17 @@ const (
 	// Clients are allowed to rendered diagnostics with this tag strike through.
 	DTDeprecated
 )
+
+func (tag DiagnosticTag) String() string {
+	switch tag {
+	case DTUnnecessary:
+		return "unnecessary"
+	case DTDeprecated:
+		return "deprecated"
+	}
+
+	return "<unknown>"
+}
 
 // Diagnostic represents a diagnostic, such as a compiler error or warning.
 // Diagnostic objects are only valid in the scope of a resource.

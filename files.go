@@ -14,6 +14,27 @@ const (
 	WKDelete
 )
 
+func (kind WatchKind) String() string {
+	switch kind {
+	case WKCreate:
+		return "create"
+	case WKChange:
+		return "change"
+	case WKDelete:
+		return "delete"
+	case WKCreate | WKChange:
+		return "create/change"
+	case WKCreate | WKDelete:
+		return "create/delete"
+	case WKChange | WKDelete:
+		return "change/delete"
+	case WKCreate | WKChange | WKDelete:
+		return "create/change/delete"
+	}
+
+	return "<unknown>"
+}
+
 // FileChangeType defines the type of a file event.
 type FileChangeType int
 
@@ -27,6 +48,27 @@ const (
 	// FCTDeleted means the file got deleted.
 	FCTDeleted
 )
+
+func (fct FileChangeType) String() string {
+	switch fct {
+	case FCTCreated:
+		return "created"
+	case FCTChanged:
+		return "changed"
+	case FCTDeleted:
+		return "deleted"
+	case FCTCreated | FCTChanged:
+		return "created/changed"
+	case FCTCreated | FCTDeleted:
+		return "created/deleted"
+	case FCTChanged | FCTDeleted:
+		return "changed/deleted"
+	case FCTCreated | FCTChanged | FCTDeleted:
+		return "created/changed/deleted"
+	}
+
+	return "<unknown>"
+}
 
 // FileSystemWatcher defines a watcher on a given glob pattern.
 type FileSystemWatcher struct {

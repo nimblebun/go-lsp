@@ -80,6 +80,19 @@ const (
 	DocumentHighlightKindWrite
 )
 
+func (hk DocumentHighlightKind) String() string {
+	switch hk {
+	case DocumentHighlightKindText:
+		return "text"
+	case DocumentHighlightKindRead:
+		return "string"
+	case DocumentHighlightKindWrite:
+		return "write"
+	}
+
+	return "<unknown>"
+}
+
 // DocumentHighlight is a range inside a text document which deserves special
 // attention. Usually a document highlight is visualized by changing the
 // background color of its range.

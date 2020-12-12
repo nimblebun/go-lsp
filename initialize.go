@@ -70,7 +70,7 @@ type InitializeParams struct {
 // payload for an `initialize` request.
 type InitializeResult struct {
 	// The capabilities the language server provides.
-	// Capabilities ServerCapabilities `json:"capabilities"`
+	Capabilities ServerCapabilities `json:"capabilities"`
 
 	// Information about the server.
 	ServerInfo ServerInfo `json:"serverInfo,omitempty"`

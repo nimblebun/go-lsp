@@ -18,6 +18,19 @@ const (
 	CTKTriggerForIncompleteCompletions
 )
 
+func (ctk CompletionTriggerKind) String() string {
+	switch ctk {
+	case CTKInvoked:
+		return "invoked"
+	case CTKTriggerCharacter:
+		return "trigger character"
+	case CTKTriggerForIncompleteCompletions:
+		return "trigger for incomplete completions"
+	}
+
+	return "<unknown>"
+}
+
 // CompletionContext contains additional information about the context in which
 // a completion request is triggered.
 type CompletionContext struct {
@@ -46,6 +59,17 @@ const (
 	// that is typing in one will update others too.
 	ITFSnippet
 )
+
+func (itf InsertTextFormat) String() string {
+	switch itf {
+	case ITFPlainText:
+		return "plain text"
+	case ITFSnippet:
+		return "snippet"
+	}
+
+	return "<unknown>"
+}
 
 // CompletionItemTag defines extra annotations that tweak the rendering of a
 // completion item.
@@ -135,6 +159,63 @@ const (
 	CIKTypeParameter
 )
 
+func (kind CompletionItemKind) String() string {
+	switch kind {
+	case CIKText:
+		return "text"
+	case CIKMethod:
+		return "method"
+	case CIKFunction:
+		return "function"
+	case CIKConstructor:
+		return "constructor"
+	case CIKField:
+		return "field"
+	case CIKVariable:
+		return "variable"
+	case CIKClass:
+		return "class"
+	case CIKInterface:
+		return "interface"
+	case CIKModule:
+		return "module"
+	case CIKProperty:
+		return "property"
+	case CIKUnit:
+		return "unit"
+	case CIKValue:
+		return "value"
+	case CIKEnum:
+		return "enum"
+	case CIKKeyword:
+		return "keyword"
+	case CIKSnippet:
+		return "snippet"
+	case CIKColor:
+		return "color"
+	case CIKFile:
+		return "file"
+	case CIKReference:
+		return "reference"
+	case CIKFolder:
+		return "folder"
+	case CIKEnumMember:
+		return "enum member"
+	case CIKConstant:
+		return "constant"
+	case CIKStruct:
+		return "struct"
+	case CIKEvent:
+		return "event"
+	case CIKOperator:
+		return "operator"
+	case CIKTypeParameter:
+		return "type parameter"
+	}
+
+	return "<unknown>"
+}
+
 // CompletionItem describes a single completion item.
 type CompletionItem struct {
 	// The label of this completion item. By default
@@ -145,7 +226,7 @@ type CompletionItem struct {
 	// The kind of this completion item. Based of the kind
 	// an icon is chosen by the editor. The standardized set
 	// of available values is defined in `CompletionItemKind`.
-	Kind []CompletionItemKind `json:"kind,omitempty"`
+	Kind CompletionItemKind `json:"kind,omitempty"`
 
 	// Tags for this completion item.
 	Tags []CompletionItemTag `json:"tags,omitempty"`
