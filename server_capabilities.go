@@ -47,10 +47,10 @@ type ServerCapabilities struct {
 	DocumentSymbolProvider *DocumentSymbolRegistrationOptions `json:"documentSymbolProvider,omitempty"`
 
 	// The server provides code actions.
-	// CodeActionProvider *CodeActionRegistrationOptions `json:"codeActionProvider,omitempty"`
+	CodeActionProvider *CodeActionRegistrationOptions `json:"codeActionProvider,omitempty"`
 
 	// The server provides CodeLens.
-	// CodeLensProvider *CodeLensRegistrationOptions `json:"codeLensProvider,omitempty"`
+	CodeLensProvider *CodeLensRegistrationOptions `json:"codeLensProvider,omitempty"`
 
 	// The server provides document link support.
 	DocumentLinkProvider *DocumentLinkRegistrationOptions `json:"documentLinkProvider,omitempty"`

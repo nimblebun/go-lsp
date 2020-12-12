@@ -338,6 +338,36 @@ type SelectionRangeClientCapabilities struct {
 	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
 }
 
+// CodeActionClientCapabilities contains information about the client's code
+// action capabilities.
+type CodeActionClientCapabilities struct {
+	// Whether code action supports dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+
+	// The client supports code action literals as a valid
+	// response of the `textDocument/codeAction` request.
+	CodeActionLiteralSupport struct {
+		// The code action kind is supported with the following value set.
+		CodeActionKind struct {
+			// The code action kind values the client supports. When this
+			// property exists the client also guarantees that it will
+			// handle values outside its set gracefully and falls back
+			// to a default value when unknown.
+			ValueSet []CodeActionKind `json:"valueSet"`
+		} `json:"codeActionKind,omitempty"`
+	} `json:"codeActionLiteralSupport,omitempty"`
+
+	// Whether code action supports the `isPreferred` property.
+	IsPreferredSupport bool `json:"isPreferredSupport,omitempty"`
+}
+
+// CodeLensClientCapabilities contains information about the client's CodeLens
+// capabilities.
+type CodeLensClientCapabilities struct {
+	// Whether CodeLens supports dynamic registration.
+	DynamicRegistration bool `json:"dynamicRegistration,omitempty"`
+}
+
 // TextDocumentClientCapabilities define capabilities the editor / tool provides
 // on text documents.
 type TextDocumentClientCapabilities struct {
@@ -374,10 +404,10 @@ type TextDocumentClientCapabilities struct {
 	DocumentSymbol *DocumentSymbolClientCapabilities `json:"documentSymbol,omitempty"`
 
 	// Capabilities specific to the `textDocument/codeAction` request.
-	// CodeAction *CodeActionClientCapabilities `json:"codeAction,omitempty"`
+	CodeAction *CodeActionClientCapabilities `json:"codeAction,omitempty"`
 
 	// Capabilities specific to the `textDocument/codeLens` request.
-	// CodeLens *CodeLensClientCapabilities `json:"codeLens,omitempty"`
+	CodeLens *CodeLensClientCapabilities `json:"codeLens,omitempty"`
 
 	// Capabilities specific to the `textDocument/documentLink` request.
 	DocumentLink *DocumentLinkClientCapabilities `json:"documentLink,omitempty"`
