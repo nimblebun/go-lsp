@@ -189,12 +189,12 @@ type DocumentSymbol struct {
 	// whitespace but everything else like comments.
 	// This information is typically used to determine if the client's cursor
 	// is inside the symbol to reveal in the symbol in the UI.
-	Range Range `json:"range"`
+	Range *Range `json:"range"`
 
 	// The range that should be selected and revealed when this symbol
 	// is being picked, for example, the name of a function.
 	// Must be contained by the `range`.
-	SelectionRange Range `json:"selectionRange"`
+	SelectionRange *Range `json:"selectionRange"`
 
 	// Children of this symbol, e.g. properties of a class.
 	Children []DocumentSymbol `json:"children,omitempty"`
