@@ -271,11 +271,19 @@ type CompletionItem struct {
 	// If omitted, defaults to `ITFPlainText`.
 	InsertTextFormat InsertTextFormat `json:"insertTextFormat,omitempty"`
 
+	// How whitespace and indentation is handled during completion item insertion.
+	// If not provided the client's default value is used.
+	//
+	// @since 3.16.0
+	InsertTextMode InsertTextMode `json:"insertTextMode,omitempty"`
+
 	// An edit that is applied to a document when selecting this completion.
 	// When an edit is provided, the value of `insertText` is ignored.
 	//
 	// *Note:* The range of the edit must be a single line range and it must
 	// contain the position at which completion has been requested.
+	//
+	// TODO: add support for InsertReplaceEdit
 	TextEdit *TextEdit `json:"textEdit,omitempty"`
 
 	// An optional array of additional text edits that are applied when
@@ -354,3 +362,39 @@ type CompletionParams struct {
 	// The completion context.
 	Context CompletionContext `json:"context,omitempty"`
 }
+
+// A special text edit to provide an insert and a replace operation.
+//
+// @since 3.16.0
+type InsertReplaceEdit struct {
+	// The string to be inserted.
+	NewText string `json:"newText"`
+
+	// The range if the insert is requested.
+	Insert *Range `json:"insert"`
+
+	// The range if the replace is requested.
+	Replace *Range `json:"replace"`
+}
+
+// How whitespace and indentation is handled during completion item insertion.
+//
+// @since 3.16.0
+type InsertTextMode int
+
+const (
+	// InsertTextModeAsIs means the insertion or replace strings is taken as it
+	// is. If the value is multi line the lines below the cursor will be inserted
+	// using the indentation defined in the string value. The client will not
+	// apply any kind of adjustments to the string.
+	InsertTextModeAsIs InsertTextMode = iota + 1
+
+	// InsertTextModeAdjustIndentation means The editor adjusts leading whitespace
+	// of new lines so that they match the indentation up to the cursor of the
+	// line for which the item is accepted.
+	//
+	// Consider a line like this: <2tabs><cursor><3tabs>foo. Accepting a multi
+	// line completion item is indented using 2 tabs and all following lines
+	// inserted will be indented using 2 tabs as well.
+	InsertTextModeAdjustIndentation
+)

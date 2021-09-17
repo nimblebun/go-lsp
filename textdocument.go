@@ -66,6 +66,30 @@ type DocumentFilter struct {
 // DocumentSelector is the combination of one or more document filters.
 type DocumentSelector []DocumentFilter
 
+// ChangeAnnotation represents dditional information that describes document
+// changes.
+//
+// @since 3.16.0
+type ChangeAnnotation struct {
+	// A human-readable string describing the actual change. The string is
+	// rendered prominent in the user interface.
+	Label string `json:"label"`
+
+	// A flag which indicates that user confirmation is needed before applying the
+	// change.
+	NeedsConfirmation bool `json:"needsConfirmation,omitempty"`
+
+	// A human-readable string which is rendered less prominent in the user
+	// interface.
+	Description string `json:"description,omitempty"`
+}
+
+// ChangeAnnotationIdentifier is an identifier referring to a change annotation
+// managed by a workspace edit.
+//
+// @since 3.16.0
+type ChangeAnnotationIdentifier string
+
 // TextEdit represents a textual edit applicable to a text document.
 type TextEdit struct {
 	// The range of the text document to be manipulated. To insert
@@ -75,6 +99,15 @@ type TextEdit struct {
 	// The string to be inserted. For delete operations use an
 	// empty string.
 	NewText string `json:"newText"`
+
+	// The actual annotation identifier.
+	// NOTE: The official LSP specification has a separate, `AnnotatedTextEdit`
+	//       structure that contains this field. Since generics are difficult to
+	//       replicate and use in Go, we have decided to add the field to the base
+	//       `TextEdit` struct, as the new structure overlaps this one anyway.
+	//
+	// @since 3.16.0
+	AnnotationID ChangeAnnotationIdentifier `json:"annotationId,omitempty"`
 }
 
 // TextDocumentEdit describes textual changes on a single text document.

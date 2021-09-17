@@ -47,6 +47,15 @@ type InitializeParams struct {
 	// Information about the client.
 	ClientInfo ClientInfo `json:"clientInfo,omitempty"`
 
+	// The locale the client is currently showing the user interface in. This must
+	// not necessarily be the locale of the operating system.
+	//
+	// Uses IETF language tags as the value's syntax (See
+	// https://en.wikipedia.org/wiki/IETF_language_tag)
+	//
+	// @since 3.16.0
+	Locale string `json:"locale,omitempty"`
+
 	// The rootUri of the workspace.
 	RootURI DocumentURI `json:"rootUri,omitempty"`
 

@@ -79,6 +79,26 @@ type ServerCapabilities struct {
 	// The server provides selection range support.
 	SelectionRangeProvider *SelectionRangeRegistrationOptions `json:"selectionRangeProvider,omitempty"`
 
+	// The server provides linked editing range support.
+	//
+	// @since 3.16.0
+	LinkedEditingRangeProvider *LinkedEditingRangeRegistrationOptions `json:"linkedEditingRangeProvider,omitempty"`
+
+	// The server provides call hierarchy support.
+	//
+	// @since 3.16.0
+	CallHierarchyProvider *CallHierarchyRegistrationOptions `json:"callHierarchyProvider,omitempty"`
+
+	// The server provides semantic tokens support.
+	//
+	// @since 3.16.0
+	SemanticTokensProvider *SemanticTokensRegistrationOptions `json:"semanticTokensProvider,omitempty"`
+
+	// Whether server provides moniker support.
+	//
+	// @since 3.16.0
+	MonikerProvider *MonikerRegistrationOptions `json:"monikerProvider,omitempty"`
+
 	// The server provides workspace symbol support.
 	WorkspaceSymbolProvider *WorkspaceSymbolRegistrationOptions `json:"workspaceSymbolProvider,omitempty"`
 
@@ -86,6 +106,29 @@ type ServerCapabilities struct {
 	Workspace *struct {
 		// The server supports workspace folder.
 		WorkspaceFolders WorkspaceFoldersServerCapabilities `json:"workspaceFolders,omitempty"`
+
+		// The server is interested in file notifications/requests.
+		//
+		// @since 3.16.0
+		FileOperations *struct {
+			// The server is interested in receiving didCreateFiles notifications.
+			DidCreate *FileOperationRegistrationOptions `json:"didCreate,omitempty"`
+
+			// The server is interested in receiving willCreateFiles requests.
+			WillCreate *FileOperationRegistrationOptions `json:"willCreate,omitempty"`
+
+			// The server is interested in receiving didRenameFiles notifications.
+			DidRename *FileOperationRegistrationOptions `json:"didRename,omitempty"`
+
+			// The server is interested in receiving willRenameFiles requests.
+			WillRename *FileOperationRegistrationOptions `json:"willRename,omitempty"`
+
+			// The server is interested in receiving didDeleteFiles file notifications
+			DidDelete *FileOperationRegistrationOptions `json:"didDelete,omitempty"`
+
+			// The server is interested in receiving willDeleteFiles file requests.
+			WillDelete *FileOperationRegistrationOptions `json:"willDelete,omitempty"`
+		} `json:"fileOperations,omitempty"`
 	} `json:"workspace,omitempty"`
 
 	// Experimental server capabilities.

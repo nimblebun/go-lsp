@@ -142,6 +142,25 @@ func (kind SymbolKind) String() string {
 	return "<unknown>"
 }
 
+// Symbol tags are extra annotations that tweak the rendering of a symbol.
+//
+// @since 3.16
+type SymbolTag int
+
+const (
+	// STDeprecated will render a symbol as obsolete, usually using a strike-out.
+	STDeprecated SymbolTag = iota + 1
+)
+
+func (tag SymbolTag) String() string {
+	switch tag {
+	case STDeprecated:
+		return "deprecated"
+	}
+
+	return "<unknown>"
+}
+
 // WorkspaceSymbolOptions is a literal for WorkDoneProgressOptions for symbols
 // in a workspace.
 type WorkspaceSymbolOptions struct {
@@ -182,6 +201,11 @@ type DocumentSymbol struct {
 	// The kind of this symbol.
 	Kind SymbolKind `json:"kind"`
 
+	// Tags for this document symbol.
+	//
+	// @since 3.16.0
+	Tags []SymbolTag `json:"tags,omitempty"`
+
 	// Indicates if this symbol is deprecated.
 	Deprecated bool `json:"deprecated,omitempty"`
 
@@ -209,6 +233,11 @@ type SymbolInformation struct {
 	// The kind of this symbol.
 	Kind SymbolKind `json:"kind"`
 
+	// Tags for this symbol.
+	//
+	// @since 3.16.0
+	Tags []SymbolTag `json:"tags,omitempty"`
+
 	// Indicates if this symbol is deprecated.
 	Deprecated bool `json:"deprecated,omitempty"`
 
@@ -233,6 +262,12 @@ type SymbolInformation struct {
 // DocumentSymbolOptions contains the options for the document symbol handler.
 type DocumentSymbolOptions struct {
 	WorkDoneProgressOptions
+
+	// A human-readable string that is shown when multiple outlines trees are
+	// shown for the same document.
+	//
+	// @since 3.16.0
+	Label string `json:"label,omitempty"`
 }
 
 // DocumentSymbolRegistrationOptions contains the options for the document

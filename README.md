@@ -4,6 +4,8 @@ This is a module that contains type definitions and documentation for the
 [Language Server Protocol Specification][lsp-spec]. It aims to provide
 up-to-date and clear definitions to use in a language server.
 
+**LSP spec support:** 3.15, 3.16.
+
 ## Getting Started
 
 ```

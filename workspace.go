@@ -79,6 +79,11 @@ type CreateFile struct {
 
 	// Additional options.
 	Options CreateFileOptions `json:"options,omitempty"`
+
+	// AnnotationID is an optional annotation identifer describing the operation.
+	//
+	// @since 3.16.0
+	AnnotationID ChangeAnnotationIdentifier `json:"annotationId,omitempty"`
 }
 
 // NewCreateFile instantiates a CreateFile struct.
@@ -112,6 +117,11 @@ type RenameFile struct {
 
 	// Additional options.
 	Options RenameFileOptions `json:"options,omitempty"`
+
+	// AnnotationID is an optional annotation identifer describing the operation.
+	//
+	// @since 3.16.0
+	AnnotationID ChangeAnnotationIdentifier `json:"annotationId,omitempty"`
 }
 
 // NewRenameFile instantiates a RenameFile struct.
@@ -143,6 +153,11 @@ type DeleteFile struct {
 
 	// Additional options.
 	Options DeleteFileOptions `json:"options,omitempty"`
+
+	// AnnotationID is an optional annotation identifer describing the operation.
+	//
+	// @since 3.16.0
+	AnnotationID ChangeAnnotationIdentifier `json:"annotationId,omitempty"`
 }
 
 // NewDeleteFile instantiates a DeleteFile struct.
@@ -177,6 +192,15 @@ type WorkspaceEdit struct {
 	// `workspace.workspaceEdit.resourceOperations`, then only plain
 	// `TextEdit`s using the `changes` property are supported.
 	DocumentChanges []WorkspaceEditDocumentChange `json:"documentChanges,omitempty"`
+
+	// A map of change annotations that can be referenced in `AnnotatedTextEdit`s
+	// or create, rename and delete file / folder operations.
+	//
+	// Whether clients honor this property depends on the client capability
+	// `workspace.changeAnnotationSupport`.
+	//
+	// @since 3.16.0
+	ChangeAnnotations map[ChangeAnnotationIdentifier]*ChangeAnnotation `json:"changeAnnotations,omitempty"`
 }
 
 // DidChangeWorkspaceFoldersParams are the parameters contained in a

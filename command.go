@@ -146,6 +146,30 @@ type CodeAction struct {
 	// choice of actions to take.
 	IsPreferred bool `json:"isPreferred,omitempty"`
 
+	// Marks that the code action cannot currently be applied.
+	//
+	// Clients should follow the following guidelines regarding disabled code
+	// actions:
+	//
+	// - Disabled code actions are not shown in automatic lightbulbs code
+	//   action menus.
+	//
+	// - Disabled actions are shown as faded out in the code action menu when
+	//   the user request a more specific type of code action, such as
+	//   refactorings.
+	//
+	// - If the user has a keybinding that auto applies a code action and only
+	//   a disabled code actions are returned, the client should show the user
+	//   an error message with `reason` in the editor.
+	//
+	// @since 3.16.0
+	Disabled struct {
+		// Human readable description of why the code action is currently disabled.
+		//
+		// This is displayed in the code actions UI.
+		Reason string `json:"reason"`
+	} `json:"disabled,omitempty"`
+
 	// The workspace edit this code action performs.
 	Edit WorkspaceEdit `json:"edit,omitempty"`
 
@@ -153,6 +177,12 @@ type CodeAction struct {
 	// provides an edit and a command, first the edit is
 	// executed and then the command.
 	Command Command `json:"command,omitempty"`
+
+	// A data entry field that is preserved on a code action between a
+	// `textDocument/codeAction` and a `codeAction/resolve` request.
+	//
+	// @since 3.16.0
+	Data interface{} `json:"data,omitempty"`
 }
 
 // CodeActionOptions contains the options for the code action handler.
@@ -164,6 +194,12 @@ type CodeActionOptions struct {
 	// The list of kinds may be generic, such as `CodeActionKind.Refactor`,
 	// or the server may list out every specific kind they provide.
 	CodeActionKinds []CodeActionKind `json:"codeActionKinds,omitempty"`
+
+	// The server provides support to resolve additional information for a code
+	// action.
+	//
+	// @since 3.16.0
+	ResolveProvider bool `json:"resolveProvider,omitempty"`
 }
 
 // CodeActionRegistrationOptions contains the options for the code action

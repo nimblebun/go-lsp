@@ -59,6 +59,14 @@ func (tag DiagnosticTag) String() string {
 	return "<unknown>"
 }
 
+// CodeDescription represents a structure to capture a description for an error
+// code.
+//
+// @since 3.16.0
+type CodeDescription struct {
+	Href URI `json:"href"`
+}
+
 // Diagnostic represents a diagnostic, such as a compiler error or warning.
 // Diagnostic objects are only valid in the scope of a resource.
 type Diagnostic struct {
@@ -71,6 +79,11 @@ type Diagnostic struct {
 
 	// The diagnostic's code, which might appear in the user interface.
 	Code string `json:"code"`
+
+	// An optional property to describe the error code.
+	//
+	// @since 3.16.0
+	CodeDescription *CodeDescription `json:"codeDescription,omitempty"`
 
 	// A human-readable string describing the source of this diagnostic, e.g.
 	// 'typescript' or 'super lint'.
@@ -85,6 +98,13 @@ type Diagnostic struct {
 	// An array of related diagnostic information, e.g. when symbol-names within
 	// a scope collide all definitions can be marked via this property.
 	RelatedInformation []DiagnosticRelatedInformation `json:"diagnosticRelatedInformation,omitempty"`
+
+	// A data entry field that is preserved between a
+	// `textDocument/publishDiagnostics` notification and
+	// `textDocument/codeAction` request.
+	//
+	// @since 3.16.0
+	Data interface{} `json:"data,omitempty"`
 }
 
 // DiagnosticRelatedInformation represents a related message and source code

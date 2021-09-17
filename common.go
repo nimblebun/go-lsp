@@ -1,5 +1,8 @@
 package lsp
 
+// URI is a generic unique resource identifier.
+type URI string
+
 // CancelParams contains the parameters of the `$/cancelRequest` method.
 type CancelParams struct {
 	// The request ID to cancel.

@@ -24,6 +24,13 @@ type SignatureInformation struct {
 
 	// The parameters of this signature.
 	Parameters []ParameterInformation `json:"parameters"`
+
+	// The index of the active parameter.
+	//
+	// If provided, this is used in place of `SignatureHelp.ActiveParameter`.
+	//
+	// @since 3.16.0
+	ActiveParameter uint `json:"activeParameter,omitempty"`
 }
 
 // SignatureHelp represents the signature of something callable. There can be
